@@ -1,0 +1,31 @@
+*{
+    font-family: 'Inter', sans-serif;
+}
+.container{
+    background-color: rgba(255, 255, 255, 0.546);
+}
+
+
+body{
+      background-image: url('/img/daniel-leone-g30P1zcOzXo-unsplash.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh;
+      backdrop-filter: blur(3px);
+}
+button, input{
+
+    border: 1px solid rgba(255, 255, 255, 0.372); 
+}
+
+.temperature{
+    font-size:80px;
+
+}
+
+img {
+  mix-blend-mode: lighten; /* or multiply, screen, etc. */
+  object-fit: cover;
+
+}
