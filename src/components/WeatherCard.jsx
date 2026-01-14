@@ -9,14 +9,18 @@ function WeatherCard() {
       <img src={bgLarge} alt="" className="hidden md:block w-full " />
 
       {/* Overlay content */}
-      <div className="absolute inset-0 flex flex-col  items-center text-amber-50 pt-9">
-        <h1 id="location">Berline, Germany</h1>
-        <p id="date" className=" mt-2">
-          Tuesday, Aug 5, 2025
-        </p>
-        <div className="flex space-around ">
-          <img src={iconSunny} alt="sunny" className="icon-weather mt-2 h-12" />
-          <h1 id="temperature" className=" italic font-semibold">
+      <div className="absolute inset-0 flex flex-col  items-center pt-9 md:flex-row md:justify-between md:p-3 lg:p-5">
+        <div className="">
+          <h1 id="location" className="text-2xl 2xl:text-4xl">
+            Berline, Germany
+          </h1>
+          <p id="date" className=" mt-2 md:text-start 2xl:text-xl">
+            Tuesday, Aug 5, 2025
+          </p>
+        </div>
+        <div className="flex justify-between items-center gap-8 md:gap-2   my-4">
+          <img src={iconSunny} alt="sunny" className="icon-weather h-24" />
+          <h1 id="temperature" className="italic text-7xl 2xl:text-8xl">
             68°
           </h1>
         </div>

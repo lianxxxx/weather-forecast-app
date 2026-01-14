@@ -11,7 +11,7 @@ function App() {
     <>
       <Header />
       <SearchBar />
-      <div className="grid grid-cols-12 gap-6">
+      <div className="grid grid-cols-12 gap-4">
         {/* Left side: 8 columns */}
         <div className="col-span-12 md:col-span-8 space-y-4">
           <WeatherCard />
@@ -24,6 +24,7 @@ function App() {
           <HourlyForecast />
         </div>
       </div>
+      <ErrorStates />
     </>
   );
 }

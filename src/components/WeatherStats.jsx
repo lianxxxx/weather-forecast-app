@@ -1,19 +1,26 @@
 function WeatherStats() {
   return (
-    <div className="mt-10">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-        <div className="weather-stats p-6 text-center h-full  rounded-xl">
-          Feels Like
-        </div>
-        <div className="weather-stats p-6 text-center h-full rounded-xl">
-          Humidity
-        </div>
-        <div className="weather-stats p-6 text-center h-full rounded-xl">
-          Wind
-        </div>
-        <div className="weather-stats p-6 text-center h-full rounded-xl">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+      <div className="weather-stats p-4 text-start h-full  rounded-xl">
+        <h1 className="weather-label">Feels Like</h1>
+        <h1 className="weather-value text-3xl mt-3">64°</h1>
+      </div>
+
+      <div className="weather-stats p-4 text-start h-full rounded-xl">
+        <h1 className="weather-label">Humidity</h1>
+        <h1 className="weather-value text-3xl mt-3">46</h1>
+      </div>
+
+      <div className="weather-stats p-4 text-start h-full rounded-xl">
+        <h1 className="weather-label">Wind</h1>
+        <h1 className="weather-value text-3xl mt-3">9 mph</h1>
+      </div>
+
+      <div className="weather-stats p-4 text-start h-full rounded-xl">
+        <h1 className="weather-label whitespace-nowrap truncate">
           Precipitation
-        </div>
+        </h1>
+        <h1 className="weather-value text-3xl mt-3">0 in</h1>
       </div>
     </div>
   );

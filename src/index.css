@@ -1,5 +1,5 @@
 /* DM Sans */
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,600;0,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
 
 /* Bricolage Grotesque */
 @import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700&display=swap");
@@ -40,10 +40,11 @@ body {
   background-color: var(--neutral-900);
   margin: 0;
   box-sizing: border-box;
+  font-family: var(--font-dm-sans);
 }
 
 .unit-dropdown {
-  background-color: var(--neutral-700);
+  background-color: var(--neutral-600);
   color: var(--neutral-0);
   font-family: var(--font-dm-sans);
 }
@@ -56,29 +57,82 @@ input[type="search"] {
 }
 
 input::placeholder {
-  color: var(--neutral-300);
+  color: var(--neutral-200);
   font-family: var(--font-dm-sans);
 }
 .search-btn {
   background-color: var(--blue-500);
   color: var(--neutral-0);
 }
-/* #location {
+#location {
   color: var(--neutral-0);
-  font-size: clamp(18px, 7vw, 68px);
+  font-weight: var(--dm-600);
+  /* font-size: clamp(18px, 7vw, 68px); */
 }
 #date {
   color: var(--neutral-200);
-  font-size: clamp(8px, 5vw, 28px);
+  /* font-size: clamp(8px, 5vw, 28px); */
 }
 #temperature {
   color: var(--neutral-0);
-  font-size: clamp(18px, 20vw, 120px);
-} */
+  font-weight: var(--dm-600i);
+  /* font-size: clamp(18px, 20vw, 120px); */
+}
 .weather-stats,
 .daily-forecast,
 .hourly-forecast,
-.hourly-forecast-container {
+.hourly-forecast-container,
+.units-dropdown-options {
   background-color: var(--neutral-800);
-  border: 2px solid var(--neutral-600);
+  border: 1px solid var(--neutral-600);
+  color: var(--neutral-0);
+}
+.title-error {
+  color: var(--neutral-0);
+  font-family: var(--font-bricolage);
+}
+
+.description-error {
+  color: var(--neutral-300);
+}
+.retry-btn {
+  color: var(--neutral-0);
+  background-color: var(--neutral-800);
+}
+.no-search-result {
+  color: var(--neutral-0);
+  font-weight: var(--dm-600);
+}
+
+.city-suggestion {
+  background-color: var(--neutral-700);
+}
+hr {
+  border: 0;
+  border-top: 1px solid var(--neutral-300);
+}
+.unit-dropdown-label {
+  color: var(--neutral-300);
+}
+.unit-option-selected {
+  background-color: var(--neutral-700);
+}
+.days-dropdown {
+  background-color: var(--neutral-800);
+  border: 1px solid var(--neutral-600);
+}
+/* for active in dropdown */
+.active {
+  background-color: var(--neutral-700);
+}
+
+.weather-label {
+  color: var(--neutral-300);
+}
+.weather-value {
+  color: var(--neutral-0);
+}
+.daily-forecast-title {
+  color: var(--neutral-0);
+  font-weight: var(--dm-500);
 }
