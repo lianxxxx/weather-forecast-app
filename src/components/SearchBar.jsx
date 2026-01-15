@@ -7,12 +7,12 @@ function SearchBar() {
           type="search"
           alt="search"
           placeholder="Search for a place..."
-          className="w-full md:w-lg  rounded-lg pl-12 pr-3 py-3"
+          className="w-full md:w-lg  rounded-lg pl-12 pr-3 py-3     text-white "
         />
         <img
           src={iconSearch}
           alt="search"
-          className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none"
+          className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5  pointer-events-none"
         />
       </div>
       {/* Search Button */}
