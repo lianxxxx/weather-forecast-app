@@ -8,19 +8,26 @@ import iconStorm from "../assets/img/icon-storm.webp";
 import iconFog from "../assets/img/icon-fog.webp";
 import iconOvercast from "../assets/img/icon-overcast.webp";
 import dropdown from "../assets/img/icon-dropdown.svg";
+import { useState } from "react";
 
 function HourlyForecast() {
+  const [isHoursDropdownOpen, setHoursDropdownOpen] = useState(false);
   return (
     <div className="hourly-forecast-container my-8 rounded-2xl p-4 relative">
       <div className="flex justify-between mb-4">
         <h1 className="font-medium text-lg">Hourly Forecast</h1>
 
-        <div className="unit-dropdown gap-3 rounded-lg px-2 py-1 flex items-center justify-between">
+        <button
+          onClick={() => setHoursDropdownOpen((prev) => !prev)}
+          className="unit-dropdown gap-3 rounded-lg px-2 py-1 flex items-center justify-between"
+        >
           <span>Monday</span>
           <img src={dropdown} alt="dropdown" className="w-4 h-4 shrink-0" />
-        </div>
+        </button>
       </div>
-      {/* <HoursDropdown /> */}
+
+      {isHoursDropdownOpen && <HoursDropdown />}
+
       <div className="flex flex-col gap-3">
         <div className="hourly-forecast rounded-lg h-full py-1 px-4 flex flex-row justify-between items-center">
           <div className="flex  items-center gap-2">
