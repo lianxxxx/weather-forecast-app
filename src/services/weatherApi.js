@@ -14,8 +14,9 @@ export const getWeather = async (latitude, longitude) => {
         latitude: latitude,
         longitude: longitude,
         current:
-          "temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m",
-        hourly: "temperature_2m,weather_code",
+          "temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m,precipitation",
+        hourly:
+          "temperature_2m,weather_code,precipitation_probability,precipitation,relative_humidity_2m,wind_speed_10m",
         daily: "temperature_2m_max,temperature_2m_min,weather_code",
         timezone: "auto",
       },
