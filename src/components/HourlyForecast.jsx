@@ -8,10 +8,26 @@ import iconStorm from "../assets/img/icon-storm.webp";
 import iconFog from "../assets/img/icon-fog.webp";
 import iconOvercast from "../assets/img/icon-overcast.webp";
 import dropdown from "../assets/img/icon-dropdown.svg";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 function HourlyForecast() {
   const [isHoursDropdownOpen, setHoursDropdownOpen] = useState(false);
+  const daysArray = useMemo(() => {
+    const days = [];
+    const today = new Date();
+
+    for (let i = 0; i < 7; i++) {
+      const date = new Date();
+      date.setDate(today.getDate() + i);
+      const dayName = date.toLocaleDateString("en-US", { weekday: "long" });
+      days.push(dayName);
+    }
+
+    return days;
+  }, []); // Empty array = calculate once only
+
+  const [selectedDay, setSelectedDay] = useState(daysArray[0] || "Monday");
+
   return (
     <div className="hourly-forecast-container my-8 rounded-2xl p-4 relative">
       <div className="flex justify-between mb-4">
@@ -21,12 +37,21 @@ function HourlyForecast() {
           onClick={() => setHoursDropdownOpen((prev) => !prev)}
           className="unit-dropdown gap-3 rounded-lg px-2 py-1 flex items-center justify-between"
         >
-          <span>Monday</span>
+          <span>{selectedDay}</span>
           <img src={dropdown} alt="dropdown" className="w-4 h-4 shrink-0" />
         </button>
       </div>
 
-      {isHoursDropdownOpen && <HoursDropdown />}
+      {isHoursDropdownOpen && (
+        <HoursDropdown
+          daysArray={daysArray}
+          selectedDay={selectedDay}
+          onSelectDay={(day) => {
+            setSelectedDay(day);
+            setHoursDropdownOpen(false); // Close dropdown after selection
+          }}
+        />
+      )}
 
       <div className="flex flex-col gap-3">
         <div className="hourly-forecast rounded-lg h-full py-1 px-4 flex flex-row justify-between items-center">
