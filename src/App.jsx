@@ -38,7 +38,7 @@ function App() {
         <div className="col-span-12 md:col-span-8 space-y-4">
           <WeatherCard weatherData={weather} loading={loading} />
           <WeatherStats weatherData={weather} loading={loading} />
-          <DailyForecast weatherData={weather} />
+          <DailyForecast weatherData={weather} loading={loading} />
         </div>
 
         {/* Right side: 4 columns */}

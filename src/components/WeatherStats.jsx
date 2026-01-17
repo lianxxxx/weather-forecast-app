@@ -80,15 +80,16 @@ function WeatherStats({ weatherData, loading }) {
     );
   }
   const { current } = weatherData;
+  const feelsLike = Math.round(current.apparent_temperature);
   const humidity = current.relative_humidity_2m;
   const wind = current.wind_speed_10m;
-  const temperature = Math.round(current.temperature_2m);
   const precipitation = current.precipitation;
+
   return (
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
       <div className="weather-stats p-4 text-start h-full  rounded-xl">
         <h1 className="weather-label">Feels Like</h1>
-        <h1 className="weather-value text-3xl mt-3">{temperature}°</h1>
+        <h1 className="weather-value text-3xl mt-3">{feelsLike}°</h1>
       </div>
 
       <div className="weather-stats p-4 text-start h-full rounded-xl">
