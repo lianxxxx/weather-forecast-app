@@ -1,8 +1,8 @@
 import iconLoading from "../assets/img/icon-loading.svg";
 function SearchInProgress() {
   return (
-    <div className="flex flex-col md:flex-row md:items-center md:justify-center mt-3 md:mr-27 ">
-      <div className="relative ">
+    <div className="  relative flex flex-col md:flex-row md:items-center md:justify-center  md:mr-27">
+      <div className="search-progress absolute top-0 left-1/2 transform -translate-x-1/2 w-full md:w-lg rounded-xl   shadow-lg z-50 mt-3">
         <input
           type="search"
           alt="search"

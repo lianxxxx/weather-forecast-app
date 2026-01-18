@@ -2,7 +2,7 @@ import bgSmall from "../assets/img/bg-today-small.svg";
 import bgLarge from "../assets/img/bg-today-large.svg";
 import { getWeatherIcon, getWeatherDescription } from "../utils/weatherIcons";
 import { SyncLoader } from "react-spinners";
-function WeatherCard({ weatherData, loading }) {
+function WeatherCard({ weatherData, loading, location }) {
   if (loading) {
     return (
       <div className="mt-7 relative">
@@ -19,7 +19,7 @@ function WeatherCard({ weatherData, loading }) {
   if (!weatherData) {
     return (
       <div className="mt-7 relative">
-        <img src={bgSmall} alt="" className="md:hidden w-full" />
+        <img src={bgSmall} alt="" className="md:hidden w-full " />
         <img src={bgLarge} alt="" className="hidden md:block w-full" />
         <div className="absolute inset-0 flex items-center justify-center">
           <p className="text-white text-xl">No weather data</p>
@@ -43,14 +43,14 @@ function WeatherCard({ weatherData, loading }) {
   return (
     <div className="mt-7 relative">
       {/* Background images */}
-      <img src={bgSmall} alt="" className="md:hidden w-full " />
-      <img src={bgLarge} alt="" className="hidden md:block w-full " />
+      <img src={bgSmall} alt="" className="md:hidden w-full" />
+      <img src={bgLarge} alt="" className="hidden md:block w-full" />
 
       {/* Overlay content */}
-      <div className="absolute inset-0 flex flex-col  items-center pt-9 md:flex-row md:justify-between md:p-3 lg:p-5">
+      <div className="absolute inset-0 flex flex-col  items-center pt-9 md:flex-row md:justify-between md:p-3 lg:p-8">
         <div className="">
-          <h1 id="location" className="text-2xl 2xl:text-4xl">
-            Manila, Philippines
+          <h1 id="location" className="text-2xl 2xl:text-4xl md:text-start ">
+            {location}
           </h1>
           <p id="date" className=" mt-2 md:text-start 2xl:text-xl">
             {currentDate}

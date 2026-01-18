@@ -75,8 +75,12 @@ function DailyForecast({ weatherData, loading }) {
               <h1>{dayName}</h1>
               <img src={weatherIcon} alt="" className="w-12 h-12 my-2" />
               <div className="flex justify-around w-full mt-2">
-                <small>{temperatureMin[index]}°</small>
-                <small>{temperatureMax[index]}°</small>
+                <small className="truncate text-sm md:text-xs lg:text-sm">
+                  {temperatureMin[index]}°
+                </small>
+                <small className="truncate text-sm md:text-xs lg:text-sm">
+                  {temperatureMax[index]}°
+                </small>
               </div>
             </div>
           );
