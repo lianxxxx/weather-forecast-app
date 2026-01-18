@@ -48,12 +48,17 @@ body {
   color: var(--neutral-0);
   font-family: var(--font-dm-sans);
 }
+.unit-dropdown:focus {
+  border: 1.5px solid var(--neutral-0);
+}
+
 .title-header {
   color: var(--neutral-0);
   font-family: var(--font-bricolage);
 }
 input[type="search"] {
   background-color: var(--neutral-700);
+  border-radius: 10px;
 }
 
 input::placeholder {
@@ -63,7 +68,23 @@ input::placeholder {
 .search-btn {
   background-color: var(--blue-500);
   color: var(--neutral-0);
+  padding: 11px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: outline-offset 0.2s ease, box-shadow 0.2s ease;
 }
+.search-btn:hover {
+  background-color: var(--blue-700);
+}
+.search-btn:focus,
+.search-btn:active {
+  outline: 2px solid var(--blue-500);
+  outline-offset: 3px;
+  padding: 8px 17px;
+  background-color: var(--blue-500);
+}
+
 #location {
   color: var(--neutral-0);
   font-weight: var(--dm-600);
@@ -82,7 +103,9 @@ input::placeholder {
 .daily-forecast,
 .hourly-forecast,
 .hourly-forecast-container,
-.units-dropdown-options {
+.units-dropdown-options,
+.city-suggestion,
+.search-progress {
   background-color: var(--neutral-800);
   border: 1px solid var(--neutral-600);
   color: var(--neutral-0);
@@ -135,4 +158,17 @@ hr {
 .daily-forecast-title {
   color: var(--neutral-0);
   font-weight: var(--dm-500);
+}
+.weather-stats,
+.daily-forecast {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.weather-stats:hover,
+.daily-forecast:hover {
+  transform: scale(1.05);
+}
+
+.hourly-forecast:hover {
+  background-color: var(--neutral-900);
 }

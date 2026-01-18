@@ -7,7 +7,7 @@ function UnitsDropdown() {
   return (
     <div className="relative">
       <button
-        className="flex gap-2 unit-dropdown rounded-lg px-3 py-2"
+        className="flex gap-2 unit-dropdown rounded-lg px-3 py-2  cursor-pointer"
         onClick={() => setIsUnitDropdownOpen((prev) => !prev)}
       >
         <img src={units} alt="" />
@@ -15,7 +15,7 @@ function UnitsDropdown() {
         <img src={dropdown} alt="" />
       </button>
       {isUnitDropdownOpen && (
-        <div className="absolute right-0  rounded-xl shadow-lg text-sm p-2 w-54 units-dropdown-options text-start mt-3 z-10">
+        <div className="absolute right-0  rounded-xl shadow-lg text-sm p-2 w-54 units-dropdown-options text-start mt-3 z-10 cursor-pointer">
           <h1 className="mb-4 mt-2">Switch to Imperial</h1>
           <div>
             <h1 className="unit-dropdown-label ps-1">Temperature</h1>
