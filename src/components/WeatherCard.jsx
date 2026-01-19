@@ -48,10 +48,13 @@ function WeatherCard({ weatherData, loading, location }) {
 
       <div className="absolute inset-0 flex flex-col  items-center pt-9 md:flex-row md:justify-between md:p-3 lg:p-8">
         <div className="">
-          <h1 id="location" className="text-2xl 2xl:text-4xl md:text-start ">
+          <h1
+            id="location"
+            className="text-2xl 2xl:text-4xl md:text-start text-center"
+          >
             {location}
           </h1>
-          <p id="date" className=" mt-2 md:text-start 2xl:text-xl">
+          <p id="date" className=" mt-2 text-center md:text-start 2xl:text-xl">
             {currentDate}
           </p>
         </div>

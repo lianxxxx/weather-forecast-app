@@ -10,8 +10,12 @@ import WeatherStats from "./components/WeatherStats";
 import NoResult from "./components/NoResult";
 import Suggestions from "./components/Suggestions";
 import SearchInProgress from "./components/SearchInProgress";
-import { getWeatherByCity, getWeatherByCoords } from "./services/weatherApi";
-import axios from "axios";
+import {
+  getWeatherByCity,
+  getWeatherByCoords,
+  getCitySuggestions,
+  detectLocation,
+} from "./services/weatherApi";
 
 function App() {
   const [weather, setWeather] = useState(null);
@@ -24,38 +28,20 @@ function App() {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [unit, setUnit] = useState("metric");
 
+  // Fetch city suggestions for autocomplete
   const fetchSuggestions = async (query) => {
-    if (query.length < 2) {
-      setSuggestions([]);
-      setShowSuggestions(false);
-      return;
-    }
+    const results = await getCitySuggestions(query);
 
-    try {
-      const response = await axios.get(
-        `https://geocoding-api.open-meteo.com/v1/search`,
-        {
-          params: {
-            name: query,
-            count: 5,
-          },
-        }
-      );
-
-      if (response.data.results) {
-        setSuggestions(response.data.results);
-        setShowSuggestions(true);
-      } else {
-        setSuggestions([]);
-        setShowSuggestions(false);
-      }
-    } catch (error) {
-      console.error("Error fetching suggestions:", error);
+    if (results.length > 0) {
+      setSuggestions(results);
+      setShowSuggestions(true);
+    } else {
       setSuggestions([]);
       setShowSuggestions(false);
     }
   };
 
+  // Fetch weather data by city name
   const fetchWeatherByCity = async (cityName, isUserSearch = false) => {
     try {
       if (isUserSearch) {
@@ -93,63 +79,31 @@ function App() {
       setSearching(false);
     }
   };
+
+  // Detect user's location (geolocation → IP → Manila)
   const detectUserLocation = async () => {
-    // Try Geolocation first
-    if (navigator.geolocation) {
-      try {
-        const position = await new Promise((resolve, reject) => {
-          navigator.geolocation.getCurrentPosition(resolve, reject, {
-            timeout: 5000, // 5 seconds timeout
-          });
-        });
+    const locationData = await detectLocation();
 
-        const { latitude, longitude } = position.coords;
-        console.log("✅ Geolocation success:", latitude, longitude);
+    const result = await getWeatherByCoords(
+      locationData.latitude,
+      locationData.longitude,
+      unit,
+    );
 
-        // Fetch weather using coordinates
-        const result = await getWeatherByCoords(latitude, longitude, unit);
-
-        if (result.success) {
-          setWeather(result.weatherData);
-          setLocation(result.location);
-          setLoading(false);
-          return true;
-        }
-      } catch (geoError) {
-        console.log("❌ Geolocation failed:", geoError.message);
-        // Continue to IP-based fallback
-      }
+    if (result.success) {
+      setWeather(result.weatherData);
+      setLocation(result.location);
     }
 
-    // Fallback: IP-based location
-    try {
-      console.log("🌐 Trying IP-based location...");
-      const ipResponse = await axios.get("https://ipapi.co/json/");
-      const { city, latitude, longitude } = ipResponse.data;
-
-      console.log("✅ IP-based location:", city, latitude, longitude);
-
-      const result = await getWeatherByCoords(latitude, longitude, unit);
-
-      if (result.success) {
-        setWeather(result.weatherData);
-        setLocation(result.location);
-        setLoading(false);
-        return true;
-      }
-    } catch (ipError) {
-      console.log("❌ IP-based location failed:", ipError.message);
-    }
-
-    // Final fallback: Manila
-    console.log("🇵🇭 Using default: Manila");
-    await fetchWeatherByCity("Manila", false);
-    return false;
+    setLoading(false);
   };
+
   useEffect(() => {
     detectUserLocation();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Handle unit change (metric/imperial)
   const handleUnitChange = (newUnit) => {
     setUnit(newUnit);
     setSearching(false);

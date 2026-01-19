@@ -59,7 +59,7 @@ function DailyForecast({ weatherData, loading }) {
   const temperatureMax = daily.temperature_2m_max;
 
   return (
-    <div className="mt-6">
+    <div className="mt-8">
       <h1 className="daily-forecast-title text-start py-3 ">Daily Forecast</h1>
       <div className="grid grid-cols-3 md:grid-cols-7 gap-4">
         {daily.time.map((date, index) => {

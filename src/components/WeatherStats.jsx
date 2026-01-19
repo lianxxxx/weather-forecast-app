@@ -86,7 +86,7 @@ function WeatherStats({ weatherData, loading }) {
   const precipitation = current.precipitation;
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-7">
       <div className="weather-stats p-4 text-start h-full  rounded-xl">
         <h1 className="weather-label">Feels Like</h1>
         <h1 className="weather-value text-3xl mt-3">{feelsLike}°</h1>

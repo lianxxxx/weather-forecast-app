@@ -1,6 +1,6 @@
 # Weather Now ☀️
 
-A responsive weather forecast application built with React and Vite. Get real-time weather data, hourly forecasts, and 7-day predictions for any location worldwide.
+A responsive weather forecast application built with React, Tailwind, Axios, and Vite. Get real-time weather data, hourly forecasts, and 7-day predictions for any location worldwide.
 
 ## 🌐 Live Demo
 
@@ -8,8 +8,8 @@ A responsive weather forecast application built with React and Vite. Get real-ti
 
 ## ✨ Features
 
-- 🌍 Auto-detect user location (Geolocation API, falls back to ISP location, then Manila as default if unavailable)
-- 🌡️ Unit toggle (Celsius ↔ Fahrenheit)
+- 🌍 **Auto-detect user location** - Geolocation API, falls back to ISP location, then Manila as default if unavailable
+- 🌡️ **Unit toggle** - Metric to Imperial
 - 🔍 **Smart City Search** - Search with autocomplete suggestions
 - 🌡️ **Real-time Weather** - Current temperature, humidity, wind speed, and precipitation
 - ⏰ **Hourly Forecast** - 8-hour forecast with day selector
@@ -102,7 +102,7 @@ weather-forecast-app/
 2. **Select a location** - Click on a suggestion or press Enter
 3. **View weather data** - See current conditions, hourly forecast, and 7-day predictions
 4. **Switch days** - Use the dropdown in hourly forecast to view different days
-5. **Choose units** – Toggle between Metric (°C) and Imperial (°F); Metric is the default
+5. **Choose units** - Toggle between Metric (°C) and Imperial (°F); Metric is the default
 
 ## 🌟 Features in Detail
 
@@ -113,6 +113,7 @@ weather-forecast-app/
 - Humidity percentage
 - Wind speed
 - Precipitation
+- Unit toggle dropdown - switch between Metric and Imperial units
 
 ### Hourly Forecast
 
@@ -139,6 +140,7 @@ weather-forecast-app/
 - 🌙 Dark/Light mode
 - ⭐ Favorite locations
 - 📊 Weather charts and graphs
+- 📅 Calendar integration
 
 ## 🤝 Contributing
 

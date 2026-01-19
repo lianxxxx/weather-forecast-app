@@ -9,7 +9,6 @@ function UnitsDropdown({ currentUnit, onUnitChange }) {
   const handleUnitSwitch = () => {
     const newUnit = currentUnit === "metric" ? "imperial" : "metric";
     onUnitChange(newUnit);
-    setIsUnitDropdownOpen(false); // Close dropdown after switch
   };
 
   const isMetric = currentUnit === "metric";
@@ -22,14 +21,20 @@ function UnitsDropdown({ currentUnit, onUnitChange }) {
       >
         <img src={units} alt="" />
         <span className="text-sm">Units</span>
-        <img src={dropdown} alt="" />
+        <img
+          src={dropdown}
+          alt=""
+          className={`transition-transform duration-200 ${
+            isUnitDropdownOpen ? "rotate-0" : "rotate-180"
+          }`}
+        />
       </button>
 
       {isUnitDropdownOpen && (
         <div className="absolute right-0 rounded-xl shadow-lg text-sm p-2 w-54 units-dropdown-options text-start mt-3 z-10">
           {/* Header - Dynamic text */}
           <h1
-            className="mb-4 mt-2 cursor-pointer hover:opacity-80"
+            className="mb-2 mt-2 cursor-pointer border border-white rounded-md p-2 hover:opacity-80 "
             onClick={handleUnitSwitch}
           >
             Switch to {isMetric ? "Imperial" : "Metric"}
@@ -41,7 +46,7 @@ function UnitsDropdown({ currentUnit, onUnitChange }) {
 
             {/* Celsius */}
             <div
-              className={`my-4 flex justify-between py-2 px-2 rounded-md cursor-pointer hover:opacity-80 ${
+              className={`my-2 flex justify-between p-2 rounded-md cursor-pointer hover:opacity-80 ${
                 isMetric ? "unit-option-selected" : ""
               }`}
               onClick={() => onUnitChange("metric")}
@@ -74,7 +79,7 @@ function UnitsDropdown({ currentUnit, onUnitChange }) {
 
             {/* km/h */}
             <div
-              className={`my-4 flex justify-between py-2 px-2 rounded-md cursor-pointer hover:opacity-80 ${
+              className={`my-2 flex justify-between  p-2 rounded-md cursor-pointer hover:opacity-80 ${
                 isMetric ? "unit-option-selected" : ""
               }`}
               onClick={() => onUnitChange("metric")}
@@ -107,7 +112,7 @@ function UnitsDropdown({ currentUnit, onUnitChange }) {
 
             {/* Millimeters */}
             <div
-              className={`my-4 flex justify-between py-2 px-2 rounded-md cursor-pointer hover:opacity-80 ${
+              className={`my-2 flex justify-between  p-2 rounded-md cursor-pointer hover:opacity-80 ${
                 isMetric ? "unit-option-selected" : ""
               }`}
               onClick={() => onUnitChange("metric")}

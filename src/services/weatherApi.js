@@ -8,6 +8,7 @@ const api = axios.create({
   timeout: 10000, // 10 seconds
 });
 
+// Fetch weather data by coordinates
 export const getWeather = async (latitude, longitude, unit = "metric") => {
   try {
     const response = await api.get("/forecast", {
@@ -33,6 +34,7 @@ export const getWeather = async (latitude, longitude, unit = "metric") => {
   }
 };
 
+// Fetch weather data by city name
 export const getWeatherByCity = async (cityName, unit = "metric") => {
   try {
     // Get coordinates from city name
@@ -75,10 +77,11 @@ export const getWeatherByCity = async (cityName, unit = "metric") => {
   }
 };
 
+// Reverse geocode coordinates to get city name and weather
 export const getWeatherByCoords = async (
   latitude,
   longitude,
-  unit = "metric"
+  unit = "metric",
 ) => {
   try {
     // Use OpenStreetMap Nominatim for reverse geocoding
@@ -93,7 +96,7 @@ export const getWeatherByCoords = async (
         headers: {
           "User-Agent": "WeatherApp/1.0", // Required by Nominatim
         },
-      }
+      },
     );
 
     const address = geoResponse.data.address;
@@ -121,4 +124,73 @@ export const getWeatherByCoords = async (
       errorType: "API_ERROR",
     };
   }
+};
+
+// Get city suggestions for search autocomplete
+export const getCitySuggestions = async (query) => {
+  if (query.length < 2) {
+    return [];
+  }
+
+  try {
+    const response = await axios.get(`${GEO_URL}/search`, {
+      params: {
+        name: query,
+        count: 5,
+      },
+    });
+
+    return response.data.results || [];
+  } catch (error) {
+    console.error("Error fetching suggestions:", error);
+    return [];
+  }
+};
+
+// Detect user location (geolocation → IP → default Manila)
+export const detectLocation = async () => {
+  // Try Geolocation first
+  if (navigator.geolocation) {
+    try {
+      const position = await new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject, {
+          timeout: 5000,
+        });
+      });
+
+      const { latitude, longitude } = position.coords;
+      console.log("Geolocation detected:", latitude, longitude);
+
+      return {
+        type: "geolocation",
+        latitude,
+        longitude,
+      };
+    } catch {
+      console.log("Geolocation failed, trying IP-based...");
+    }
+  }
+
+  // Fallback: IP-based location
+  try {
+    const ipResponse = await axios.get("https://ipapi.co/json/");
+    const { latitude, longitude } = ipResponse.data;
+
+    console.log("IP-based location detected:", latitude, longitude);
+
+    return {
+      type: "ip",
+      latitude,
+      longitude,
+    };
+  } catch {
+    console.log("IP-based location failed, using default");
+  }
+
+  // Final fallback: Manila coordinates
+  return {
+    type: "default",
+    latitude: 14.5995,
+    longitude: 120.9842,
+  };
 };
