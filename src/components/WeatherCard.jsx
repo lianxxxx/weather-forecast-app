@@ -46,7 +46,6 @@ function WeatherCard({ weatherData, loading, location }) {
       <img src={bgSmall} alt="" className="md:hidden w-full" />
       <img src={bgLarge} alt="" className="hidden md:block w-full" />
 
-      {/* Overlay content */}
       <div className="absolute inset-0 flex flex-col  items-center pt-9 md:flex-row md:justify-between md:p-3 lg:p-8">
         <div className="">
           <h1 id="location" className="text-2xl 2xl:text-4xl md:text-start ">

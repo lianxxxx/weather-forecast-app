@@ -8,6 +8,8 @@ A responsive weather forecast application built with React and Vite. Get real-ti
 
 ## ✨ Features
 
+- 🌍 Auto-detect user location (Geolocation API, falls back to ISP location, then Manila as default if unavailable)
+- 🌡️ Unit toggle (Celsius ↔ Fahrenheit)
 - 🔍 **Smart City Search** - Search with autocomplete suggestions
 - 🌡️ **Real-time Weather** - Current temperature, humidity, wind speed, and precipitation
 - ⏰ **Hourly Forecast** - 8-hour forecast with day selector
@@ -24,6 +26,7 @@ A responsive weather forecast application built with React and Vite. Get real-ti
 - **Styling:** Tailwind CSS
 - **HTTP Client:** Axios
 - **API:** [Open-Meteo API](https://open-meteo.com/) (Free, no API key required)
+- **Additional Libraries:** react-loading-skeleton, react-spinners
 - **Deployment:** Vercel
 
 ## 📦 Installation
@@ -31,7 +34,7 @@ A responsive weather forecast application built with React and Vite. Get real-ti
 1. **Clone the repository**
 
 ```bash
-   git clone https://github.com/lianxxxx/weather-forecast-app
+   git clone https://github.com/lianxxxx/weather-forecast-app.git
    cd weather-forecast-app
 ```
 
@@ -67,7 +70,6 @@ weather-forecast-app/
 ├── src/
 │   ├── assets/          # Images and icons
 │   ├── components/      # React components
-│   │   ├── CitySuggestion.jsx
 │   │   ├── DailyForecast.jsx
 │   │   ├── ErrorStates.jsx
 │   │   ├── Header.jsx
@@ -85,9 +87,13 @@ weather-forecast-app/
 │   ├── utils/           # Utility functions
 │   │   └── weatherIcons.js
 │   ├── App.jsx          # Main app component
-│   └── main.jsx         # Entry point
+│   ├── main.jsx         # Entry point for React
+│   ├── index.css        # Global styles
+│   └── app.css          # App-specific styles
 ├── public/              # Static assets
+├── index.html           # Entry point for Browser
 └── package.json
+
 ```
 
 ## 🎯 How It Works
@@ -96,6 +102,7 @@ weather-forecast-app/
 2. **Select a location** - Click on a suggestion or press Enter
 3. **View weather data** - See current conditions, hourly forecast, and 7-day predictions
 4. **Switch days** - Use the dropdown in hourly forecast to view different days
+5. **Choose units** – Toggle between Metric (°C) and Imperial (°F); Metric is the default
 
 ## 🌟 Features in Detail
 
@@ -129,8 +136,6 @@ weather-forecast-app/
 
 ## 🔮 Upcoming Features
 
-- 🌍 Auto-detect user location (Geolocation API)
-- 🌡️ Unit toggle (Celsius ↔ Fahrenheit)
 - 🌙 Dark/Light mode
 - ⭐ Favorite locations
 - 📊 Weather charts and graphs
@@ -152,9 +157,9 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 🙏 Acknowledgments
 
-- Weather data provided by [Open-Meteo API](https://open-meteo.com/)
-- Icons and design inspiration from various sources
-- Built with ❤️ using React and Vite
+- Weather data and geocoding provided by [Open-Meteo API](https://open-meteo.com/)
+- Reverse geocoding powered by [OpenStreetMap Nominatim](https://nominatim.openstreetmap.org/)
+- Icons and design inspiration from [Frontend Mentor](https://www.frontendmentor.io/)
 
 ---
 

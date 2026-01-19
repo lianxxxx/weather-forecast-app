@@ -74,3 +74,51 @@ export const getWeatherByCity = async (cityName, unit = "metric") => {
     };
   }
 };
+
+export const getWeatherByCoords = async (
+  latitude,
+  longitude,
+  unit = "metric"
+) => {
+  try {
+    // Use OpenStreetMap Nominatim for reverse geocoding
+    const geoResponse = await axios.get(
+      `https://nominatim.openstreetmap.org/reverse`,
+      {
+        params: {
+          lat: latitude,
+          lon: longitude,
+          format: "json",
+        },
+        headers: {
+          "User-Agent": "WeatherApp/1.0", // Required by Nominatim
+        },
+      }
+    );
+
+    const address = geoResponse.data.address;
+    const cityName =
+      address.city ||
+      address.town ||
+      address.village ||
+      address.municipality ||
+      "Unknown Location";
+    const country = address.country || "";
+
+    // Fetch weather
+    const weatherData = await getWeather(latitude, longitude, unit);
+
+    return {
+      success: true,
+      weatherData,
+      location: country ? `${cityName}, ${country}` : cityName,
+    };
+  } catch (error) {
+    console.error("Error fetching weather by coords:", error);
+    return {
+      success: false,
+      error: error.message || "Error fetching weather data",
+      errorType: "API_ERROR",
+    };
+  }
+};

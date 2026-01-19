@@ -10,7 +10,7 @@ import WeatherStats from "./components/WeatherStats";
 import NoResult from "./components/NoResult";
 import Suggestions from "./components/Suggestions";
 import SearchInProgress from "./components/SearchInProgress";
-import { getWeatherByCity } from "./services/weatherApi";
+import { getWeatherByCity, getWeatherByCoords } from "./services/weatherApi";
 import axios from "axios";
 
 function App() {
@@ -68,7 +68,7 @@ function App() {
       setApiError(false);
       setShowSuggestions(false);
 
-      const result = await getWeatherByCity(cityName, unit); // ← ADD unit here
+      const result = await getWeatherByCity(cityName, unit);
 
       if (result.success) {
         setWeather(result.weatherData);
@@ -93,9 +93,62 @@ function App() {
       setSearching(false);
     }
   };
+  const detectUserLocation = async () => {
+    // Try Geolocation first
+    if (navigator.geolocation) {
+      try {
+        const position = await new Promise((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject, {
+            timeout: 5000, // 5 seconds timeout
+          });
+        });
 
+        const { latitude, longitude } = position.coords;
+        console.log("✅ Geolocation success:", latitude, longitude);
+
+        // Fetch weather using coordinates
+        const result = await getWeatherByCoords(latitude, longitude, unit);
+
+        if (result.success) {
+          setWeather(result.weatherData);
+          setLocation(result.location);
+          setLoading(false);
+          return true;
+        }
+      } catch (geoError) {
+        console.log("❌ Geolocation failed:", geoError.message);
+        // Continue to IP-based fallback
+      }
+    }
+
+    // Fallback: IP-based location
+    try {
+      console.log("🌐 Trying IP-based location...");
+      const ipResponse = await axios.get("https://ipapi.co/json/");
+      const { city, latitude, longitude } = ipResponse.data;
+
+      console.log("✅ IP-based location:", city, latitude, longitude);
+
+      const result = await getWeatherByCoords(latitude, longitude, unit);
+
+      if (result.success) {
+        setWeather(result.weatherData);
+        setLocation(result.location);
+        setLoading(false);
+        return true;
+      }
+    } catch (ipError) {
+      console.log("❌ IP-based location failed:", ipError.message);
+    }
+
+    // Final fallback: Manila
+    console.log("🇵🇭 Using default: Manila");
+    await fetchWeatherByCity("Manila", false);
+    return false;
+  };
   useEffect(() => {
-    fetchWeatherByCity("Manila", false); // ← false = NOT user search, show skeleton
+    detectUserLocation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const handleUnitChange = (newUnit) => {
     setUnit(newUnit);
@@ -118,11 +171,11 @@ function App() {
       ) : (
         <>
           <SearchBar
-            onSearch={(city) => fetchWeatherByCity(city, true)} // ← true = user search
+            onSearch={(city) => fetchWeatherByCity(city, true)}
             onInputChange={fetchSuggestions}
             onSelectSuggestion={(city) => {
               setShowSuggestions(false);
-              fetchWeatherByCity(city, true); // ← true = user search
+              fetchWeatherByCity(city, true);
             }}
           />
 
@@ -132,7 +185,7 @@ function App() {
               suggestions={suggestions}
               onSelectCity={(city) => {
                 setShowSuggestions(false);
-                fetchWeatherByCity(city, true); // ← true = user search
+                fetchWeatherByCity(city, true);
               }}
             />
           )}
