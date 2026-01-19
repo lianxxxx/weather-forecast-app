@@ -22,6 +22,7 @@ function App() {
   const [apiError, setApiError] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [unit, setUnit] = useState("metric");
 
   const fetchSuggestions = async (query) => {
     if (query.length < 2) {
@@ -58,16 +59,16 @@ function App() {
   const fetchWeatherByCity = async (cityName, isUserSearch = false) => {
     try {
       if (isUserSearch) {
-        setSearching(true); // ← Show SearchInProgress only for user searches
+        setSearching(true);
       } else {
-        setLoading(true); // ← Show skeleton for initial load
+        setLoading(true);
       }
 
       setNoResult(false);
       setApiError(false);
       setShowSuggestions(false);
 
-      const result = await getWeatherByCity(cityName);
+      const result = await getWeatherByCity(cityName, unit); // ← ADD unit here
 
       if (result.success) {
         setWeather(result.weatherData);
@@ -89,17 +90,28 @@ function App() {
       setNoResult(false);
     } finally {
       setLoading(false);
-      setSearching(false); // ← Reset both
+      setSearching(false);
     }
   };
 
   useEffect(() => {
     fetchWeatherByCity("Manila", false); // ← false = NOT user search, show skeleton
   }, []);
-
+  const handleUnitChange = (newUnit) => {
+    setUnit(newUnit);
+    setSearching(false);
+    if (weather && location) {
+      setLoading(true);
+      fetchWeatherByCity(location, false);
+    }
+  };
   return (
     <div className=" p-4 md:px-8 md:py-6 lg:px-16 xl:px-20 2xl:px-24">
-      <Header showTitle={!apiError} />
+      <Header
+        showTitle={!apiError}
+        currentUnit={unit}
+        onUnitChange={handleUnitChange}
+      />
 
       {apiError ? (
         <ErrorStates onRetry={() => fetchWeatherByCity(location, true)} />
