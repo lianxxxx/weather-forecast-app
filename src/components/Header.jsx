@@ -1,12 +1,12 @@
 import logo from "../assets/img/logo.svg";
 import UnitsDropdown from "./UnitsDropdown";
 
-function Header({ showTitle = true }) {
+function Header({ showTitle = true, currentUnit, onUnitChange }) {
   return (
     <div>
       <div className="flex justify-between">
         <img src={logo} alt="Logo" className=" w-32" />
-        <UnitsDropdown />
+        <UnitsDropdown currentUnit={currentUnit} onUnitChange={onUnitChange} />
       </div>
       {showTitle && (
         <h1 className="text-5xl/14 title-header my-14 text-center">
